@@ -19,3 +19,10 @@ session*
 .cask
 tramp
 /var/pcache
+
+# Compiled
+*.elc
+
+# Packaging
+.cask
+
