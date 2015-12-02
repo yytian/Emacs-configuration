@@ -1,6 +1,5 @@
 (unless (gnutls-available-p) (error "GNU TLS is not available (are you using Windows? You may have to manually install it)"))
 
-
 (desktop-save-mode 1)
 
 ;; Remove scrollbars, menu bars, and toolbars
@@ -26,8 +25,13 @@
 
 (defvar root-dir (file-name-directory load-file-name)
   "The root dir of the Emacs configuration.")
+
+(defvar library-dir (expand-file-name "lib" root-dir)
+  "Where external libraries are stored. Must manually update.")
+
 (defvar package-dir (expand-file-name "pkg" root-dir)
   "Package management.")
 
+(add-to-list 'load-path library-dir)
 (add-to-list 'load-path package-dir)
 (require 'install-packages)

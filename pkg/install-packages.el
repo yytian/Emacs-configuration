@@ -1,32 +1,22 @@
-(require 'cl)
 (require 'package)
+
+(eval-when-compile
+  (require 'use-package))
+;(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
 
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
-(defvar required-packages
-  '(
-    magit
-    org
-    clojure-mode
-  ) "The list of packages that must be installed before launch.")
+(setq use-package-always-ensure t)
 
-;; method to check if all packages are installed
-(defun packages-installed-p ()
-  ; Note: look up how this works (common lisp macro)
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
+(use-package magit
+	     :ensure t)
 
-;; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-  ; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ; install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+(use-package org
+	     :ensure t)
+
+(use-package clojure-mode
+	     :ensure t)
 
 (provide 'install-packages)

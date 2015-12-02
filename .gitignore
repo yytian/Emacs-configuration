@@ -1,3 +1,4 @@
+.emacs.desktop*
 *.elc
 auto-save-list
 recentf
