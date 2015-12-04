@@ -1,5 +1,21 @@
 (unless (gnutls-available-p) (error "GNU TLS is not available (are you using Windows? You may have to manually install it)"))
 
+;; http://stackoverflow.com/questions/16676750/windows-emacs-git-bash-and-shell-command
+;; Generalize this later (make a file for system-specific setup)
+(if (equal system-type 'windows-nt)
+    (progn (setq explicit-shell-file-name
+                 "C:/Program Files (x86)/Git/bin/sh.exe") ; Check for failure
+	   (setq shell-file-name explicit-shell-file-name)
+           (setq explicit-sh.exe-args '("--login" "-i"))
+           (setenv "SHELL" shell-file-name)
+           (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
+
+
+
+
+
+
+
 (desktop-save-mode 1)
 
 ;; Remove scrollbars, menu bars, and toolbars
