@@ -1,4 +1,4 @@
-(unless (gnutls-available-p) (error "GNU TLS is not available (are you using Windows? You may have to manually install it)"))
+(when (and (eq system-type 'windows-nt) (not (gnutls-available-p))) (error "GNU TLS is not available and you are using Windows. You may have to manually install it."))
 
 ;; http://stackoverflow.com/questions/16676750/windows-emacs-git-bash-and-shell-command
 ;; Generalize this later (make a file for system-specific setup)
