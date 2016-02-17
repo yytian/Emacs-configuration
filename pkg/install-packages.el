@@ -2,9 +2,9 @@
 
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+(package-refresh-contents)
 
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 
 (eval-when-compile
@@ -14,10 +14,27 @@
 
 (setq use-package-always-ensure t) ;; A bit redundant but that's fine
 
-(use-package magit
-  :ensure t)
 
-(use-package org
+;; Split into logical groups somehow
+
+(use-package ido
+  :init (progn (ido-mode 1)
+               (ido-everywhere 1))
+  :config
+  (progn
+    (setq ido-case-fold t)
+    (setq ido-everywhere t)
+    (setq ido-enable-prefix nil)
+    (setq ido-enable-flex-matching t)
+    (setq ido-create-new-buffer 'always)
+    (setq ido-max-prospects 10)
+    (setq ido-use-faces nil)))
+
+(use-package smex
+  :init (smex-initialize)
+  :bind ("M-x" . smex))
+
+(use-package magit
   :ensure t)
 
 (use-package clojure-mode
