@@ -49,15 +49,18 @@
     (setq ido-max-prospects 10)
     (setq ido-use-faces nil)))
 
+(use-package flx-ido ;; Fuzzy matching
+  :init (flx-ido-mode 1)
+  :config (setq gc-cons-threshold 20000000)
+  ;; author recommendation since it uses a lot of memory
+  ;; Twenty megabytes and still swapping?!
+  )
+
 (use-package smex
   :init (smex-initialize)
   :bind ("M-x" . smex))
 
 (use-package magit
-  :ensure t)
-
-(use-package clojure-mode
-  :defer t
   :ensure t)
 
 (use-package paredit
@@ -104,5 +107,6 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-default-notes-file (concat org-directory "/capture.org"))
+(setq org-catch-invisible-edits 'error)
 
 (provide 'install-packages)

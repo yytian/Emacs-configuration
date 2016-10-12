@@ -1,5 +1,7 @@
 extern
 .emacs.desktop*
+*~
+bookmarks
 *.elc
 auto-save-list
 recentf
