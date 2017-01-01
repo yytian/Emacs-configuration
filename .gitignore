@@ -1,6 +1,7 @@
 extern
 .emacs.desktop*
 *~
+\#*\#
 bookmarks
 *.elc
 auto-save-list
@@ -19,6 +20,7 @@ places
 .smex-items
 savefile/
 projectile-bookmarks.eld
+smex-items
 session*
 .cask
 tramp

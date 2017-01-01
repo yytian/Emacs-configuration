@@ -60,9 +60,6 @@
   :init (smex-initialize)
   :bind ("M-x" . smex))
 
-(use-package magit
-  :ensure t)
-
 (use-package paredit
   :ensure t
   :init
@@ -99,6 +96,38 @@
     (setq company-tooltip-align-annotations t)
     :init
     (setq racer-rust-src-path (concat extern-directory "rust-src"))))
+
+;; Projectile setup (thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-projectile.el)
+(defconst modi/rg-arguments
+  `("--no-ignore-vcs"                   ; Ignore files/dirs ONLY from `.ignore'
+    "--line-number"                     ; line numbers
+    "--smart-case"
+    "--follow"                          ; follow symlinks
+    ,(concat "--ignore-file /home/" (getenv "USER") "/.ignore"))
+  "Default rg arguments used in the functions in `counsel' and `projectile'
+packages.")
+
+(use-package projectile
+  :config
+  (progn
+    (setq projectile-enable-caching t)
+    (defun modi/advice-projectile-use-rg ()
+      "Always use `rg' for getting a list of all files in the project."
+      (let* ((prj-user-ignore-name (concat (projectile-project-root)
+                                           ".ignore." (getenv "USER")))
+             (prj-user-ignore (when (file-exists-p prj-user-ignore-name)
+                                (concat "--ignore-file " prj-user-ignore-name))))
+        (mapconcat 'identity
+                   (append '("\\rg") ; used unaliased version of `rg': \rg
+                           modi/rg-arguments
+                           `(,prj-user-ignore) ; If nil, this will not be appended
+                           '("--null" ; output null separated results,
+                             "--files")) ; get names of all the to-be-searched files
+                                        ; same as the "-g ''" argument in ag
+                   " ")))
+    ;; Use `rg' all the time if available
+    (when (executable-find "rg")
+	(advice-add 'projectile-get-ext-command :override #'modi/advice-projectile-use-rg))))
 
 ;; org-mode setup (put where?)
 (require 'org)
