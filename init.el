@@ -18,6 +18,8 @@
       (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
       ))
 
+(setq c-basic-offset 4) ;; default is 2
+(setq c-indent-level 4) ;; Default is 2
 
 (desktop-save-mode 1)
 
@@ -37,7 +39,7 @@
  '(custom-enabled-themes (quote (wheatgrass)))
  '(package-selected-packages
    (quote
-    (flx-ido use-package smex racer paredit magit company-flow auctex))))
+    (find-file-in-project flx-ido use-package smex racer paredit magit company-flow auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
