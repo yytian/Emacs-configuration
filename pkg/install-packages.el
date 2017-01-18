@@ -110,7 +110,8 @@ packages.")
 (use-package find-file-in-project
   :ensure t
   :config
-  (setq ffip-prefer-ido-mode t))
+  (setq ffip-prefer-ido-mode t)
+  (global-set-key (kbd "C-x f") 'find-file-in-project))
 
 ;; org-mode setup (put where?)
 (require 'org)
