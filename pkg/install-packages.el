@@ -97,16 +97,6 @@
     :init
     (setq racer-rust-src-path (concat extern-directory "rust-src"))))
 
-;; Projectile setup (thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-projectile.el)
-(defconst modi/rg-arguments
-  `("--no-ignore-vcs"                   ; Ignore files/dirs ONLY from `.ignore'
-    "--line-number"                     ; line numbers
-    "--smart-case"
-    "--follow"                          ; follow symlinks
-    ,(concat "--ignore-file /home/" (getenv "USER") "/.ignore"))
-  "Default rg arguments used in the functions in `counsel' and `projectile'
-packages.")
-
 (use-package find-file-in-project
   :ensure t
   :config
